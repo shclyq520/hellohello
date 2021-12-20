@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>打个招呼</h1>
+    <introduce title="早上好"></introduce>
+    <my-list :items="lessons"/>
+</div>
+
+
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    //定义全局组件
+    Vue.component("introduce",{
+        template:'<h1>{{title}}</h1>',
+        props:['title'] //title 对应上一行的title，，表示一个属性，用来接收父组件传递的数据
+    });
+
+    const myList = {
+        template: '\
+        <ul>\
+        	<li v-for="item in items" :key="item.id">{{item.id}} : {{item.name}}</li>\
+        </ul>\
+        ',
+        props: {
+            items: {
+                type: Array,
+                default: [],
+                required: true
+            }
+        }
+    };
+
+    //创建<div id="app">的vue对象
+    var app = new Vue({
+        el:"#app",
+        components:{
+            myList // 当key和value一样时，可以只写一个
+        },
+        data:{
+            lessons:[
+                {id:1, name: 'java'},
+                {id:2, name: 'php'},
+                {id:3, name: 'ios'},
+            ],
+            post:{
+                likes:123
+            }
+        }
+    })
+</script>
+</html>

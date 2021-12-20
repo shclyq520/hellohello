@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="hello2.html">
+    <div id="app"><!--mv   vm-->
+        <input type="text" v-model="name" />
+        <input type="text" v-model="num">
+        <button v-on:click="num++">点我</button>
+        <!--        <button v-on:contextmenu.prevent="num++">点我</button>-->
+        <!--        <button v-on:contextmenu="num++">点我</button>-->
+        <button @click="num++">点我</button>
+        <button v-on:click="add">加</button>
+        <button v-on:click="jian">减</button>
+        <h1>{{name}} ,非常帅！，{{num}}岁</h1><br/>
+        v-text:<span v-text="hello"></span><br/>
+        v-html:<span v-html="hello"></span><br/>
+        <input type="checkbox" v-model="language" value="java">java<br/>
+        <input type="checkbox" v-model="language" value="javascript">javascript<br/>
+        <input type="checkbox" v-model="language" value="c++">c++<br/>
+        你选择了:{{language.join(',')}}<br/>
+        <!--        <input v-on:keyup.13="submit"/>&lt;!&ndash; 只有在 `keyCode` 是 13 时调用 `vm.submit() 提交表单` &ndash;&gt;-->
+        <input v-on:keyup.enter="submit"/><br/><!-- enter健的值是13，可以用enter代替13 -->
+        <table border="1" cellspacing="0" cellpadding="0">
+            <tr><th>序号</th><th>名字</th><th>性别</th><th>年龄</th></tr>
+
+            <!--            <tr v-for="user in users">-->   <!--不带序号-->
+            <tr v-for="(user,index) in users" v-if="user.gender=='女'">
+                <!--                <td>{{index+1}}</td>-->
+                <td>{{index+1>9?index+1:'0'+(index+1)}}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.age }}</td>
+
+            </tr>
+        </table>
+        <!--   遍历对象     -->
+        <ul>
+            <li v-for="(value,key,index) in user" >
+                {{index+1}}.{{key+'----'+value}}
+            </li>
+        </ul>
+    </div>
+
+
+    <div id="app2">
+        <h1>{{name}} ,非常帅2222222！，{{num}}岁</h1>
+    </div>
+</form>
+</body>
+<script src="node_modules/vue/dist/vue.js"></script><!--引入vue.js-->
+<script>
+    var app = new Vue({
+        el:"#app", // el即element，该vue实例要渲染的页面元素  getElementById
+        data:{// 渲染页面需要的数据
+            name:"靖哥哥",
+            num:20,
+            hello:"<h1>1111111111</h1>",
+            language:[],   /*记录选中的语言的值*/
+            users:[
+                {name:'柳岩', gender:'女', age: 21},
+                {name:'峰哥', gender:'男', age: 18},
+                {name:'范冰冰', gender:'女', age: 24},
+                {name:'刘亦菲', gender:'女', age: 18},
+                {name:'古力娜扎', gender:'女', age: 25},
+                {name:'柳岩', gender:'女', age: 21},
+                {name:'峰哥', gender:'男', age: 18},
+                {name:'范冰冰', gender:'女', age: 24},
+                {name:'刘亦菲', gender:'女', age: 18},
+                {name:'古力娜扎', gender:'女', age: 25},
+                {name:'柳岩', gender:'女', age: 21},
+                {name:'峰哥', gender:'男', age: 18},
+                {name:'范冰冰', gender:'女', age: 24},
+                {name:'刘亦菲', gender:'女', age: 18},
+                {name:'古力娜扎', gender:'女', age: 25}
+            ],
+            user:
+                {name:'柳岩', gender:'女', age: 21},
+        },
+        methods:{
+            add:function () {
+                this.num++;
+            },
+            jian:function () {
+                this.num--;
+            }
+
+        },
+        // created:function () {
+        //     this.num=100
+        // },
+        mounted:function () {
+            this.num=200;
+            console.log(this);//打印日志
+        }
+    });
+</script>
+
+</html>
